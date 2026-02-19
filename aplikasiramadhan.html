@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadhan Smart School Journal 🌙</title>
+    <style>
+        :root {
+            --sage: #9BB0A1;
+            --dark-sage: #3D4F42;
+            --cream: #F8F6F0;
+            --white: #ffffff;
+            --gold: #D4AF37;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark-sage);
+            background-image: radial-gradient(var(--sage) 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+        }
+
+        .app-shell {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* HEADER DENGAN LOGO SEKOLAH */
+        header {
+            background: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid var(--sage);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-info { display: flex; align-items: center; gap: 15px; }
+        .mascot { font-size: 50px; cursor: pointer; }
+
+        /* AREA LOGO SEKOLAH */
+        .school-logo {
+            width: 100px;
+            height: 100px;
+            background: #eee;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--sage);
+        }
+
+        /* TEMPAT GANTI LOGO */
+        .school-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 5% 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .active-page { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* DASHBOARD 3 KOLOM DESKTOP */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .report-card {
+            background: var(--white);
+            border-radius: 35px;
+            padding: 40px 25px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            transition: 0.3s;
+            border: 1px solid #eee;
+        }
+        .report-card:hover { border-color: var(--sage); transform: translateY(-10px); }
+
+        .icon-box {
+            font-size: 50px;
+            background: var(--cream);
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background: var(--dark-sage);
+            color: white;
+            padding: 14px 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn-link:hover { background: var(--sage); }
+
+        /* TAB NAVIGASI */
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 2px solid var(--cream);
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            border: none;
+            background: none;
+            color: #ccc;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active { color: var(--dark-sage); }
+        .nav-btn span { font-size: 24px; }
+        .nav-btn label { font-size: 11px; font-weight: bold; cursor: pointer; }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .school-logo { width: 60px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <header>
+        <div class="header-info">
+            <div class="mascot" onclick="shout()">🧑‍🎓</div>
+            <div>
+                <h1 style="margin:0; font-size: 1.5rem;">Smart Ramadhan</h1>
+                <p id="date-now" style="margin:0; font-size: 13px; color: var(--sage); font-weight: bold;"></p>
+            </div>
+        </div>
+
+        <div class="school-logo">
+            <img src="Logo YTM SMP.png" alt="Logo Sekolah">
+        </div>
+    </header>
+
+    <main>
+        <div id="laporan" class="page active-page">
+            <h2 style="text-align: center; margin-bottom: 40px;">Setoran Ibadah Digital 📝</h2>
+            <div class="dashboard-grid">
+                
+                <div class="report-card">
+                    <div class="icon-box">🍱</div>
+                    <h3>Jurnal Puasa</h3>
+                    <p style="font-size: 14px; opacity: 0.7;">Laporan niat, sahur, dan buka.</p>
+                    <a href="#" class="btn-link">Isi Form Puasa</a>
+                </div>
+
+                <div class="report-card">
+                    <div class="icon-box">🕌</div>
+                    <h3>Jurnal Shalat</h3>
+                    <p style="font-size: 14px; opacity: 0.7;">Laporan Fardhu & Tarawih.</p>
+                    <a href="#" class="btn-link">Isi Form Shalat</a>
+                </div>
+
+                <div class="report-card">
+                    <div class="icon-box">📖</div>
+                    <h3>Jurnal Quran</h3>
+                    <p style="font-size: 14px; opacity: 0.7;">Laporan Tilawah & Hafalan.</p>
+                    <a href="#" class="btn-link">Isi Form Quran</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="modul" class="page">
+            <h2 style="margin-bottom: 30px;">📚 Ringkasan Ilmu</h2>
+            <div class="report-card" style="text-align: left; max-width: 800px; margin: 0 auto;">
+                <b>Syarat Sah:</b> Islam, Baligh, Berakal, Suci Haid.<br><br>
+                <b>Rukun:</b> Niat & Menahan diri dari pembatal puasa.<br><br>
+                <b>Pembatal:</b> Makan/minum sengaja, muntah sengaja, haid.
+            </div>
+        </div>
+    </main>
+
+    <nav>
+        <button class="nav-btn active" onclick="changeTab('laporan', this)">
+            <span>📝</span><label>LAPORAN</label>
+        </button>
+        <button class="nav-btn" onclick="changeTab('modul', this)">
+            <span>📚</span><label>MODUL</label>
+        </button>
+    </nav>
+</div>
+
+<script>
+    function changeTab(pageId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(pageId).classList.add('active-page');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function shout() {
+        alert("Jangan lupa senyum hari ini! 😊");
+    }
+
+    document.getElementById('date-now').innerText = new Date().toLocaleDateString('id-ID', { 
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' 
+    });
+</script>
+
+</body>
+</html>
